@@ -181,7 +181,7 @@ var types = {
 };
 
 return function(doc, views) {
-	var tealium = doc.getElementById('tealium');
+	var tealium = doc.getElementById('tlmdata');
 	/*
 		data-environment="prod"
 		data-site-section="music"
