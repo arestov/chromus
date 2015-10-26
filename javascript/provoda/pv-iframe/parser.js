@@ -196,7 +196,7 @@ return function(doc, views) {
 		data-device-type="desktop"
 	*/
 	var page_title = doc.querySelector('header .header-info .header-info-primary .header-title');
-	var page_crumb = doc.querySelector('header .header-info .header-info-primary .header-crumb a');
+	var page_crumb = doc.querySelector('header .header-info .header-info-primary .header-crumb');
 	var common = {
 		tealium: tealium,
 		title: page_title && page_title.textContent.trim(),
