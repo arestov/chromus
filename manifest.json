@@ -39,7 +39,7 @@
         "matches": [ "http://*.last.fm/*", "http://*.lastfm.ru/*","http://*.lastfm.pt/*",  "http://*.lastfm.de/*", "http://*.lastfm.es/*", "http://*.lastfm.fr/*", "http://*.lastfm.it/*", "http://*.lastfm.jp/*", "http://*.lastfm.pl/*", "http://*.lastfm.com.br/*", "http://*.lastfm.se/*", "http://*.lastfm.com.tr/*"]
       },{
        "js": ["javascript/lastfm_auth_callback.js"],
-       "matches": ["http://ya.ru/white*"]
+       "matches": ["https://ya.ru/white*"]
       },{
        "js": ["javascript/jquery.min.js", "javascript/hotkeys.js"],
        "matches": ["http://*/*", "https://*/*"]
