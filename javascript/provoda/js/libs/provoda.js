@@ -795,6 +795,7 @@ var ev_na_cache = {};
 
 var FlowStep = function(num, fn, context, args, arg, cb_wrapper, real_context, parent_motivator) {
 	this.aborted = false;
+	this.done = false;
 	this.p_space = '';
 	this.p_index_key = '';
 	this.num = num;
@@ -979,7 +980,8 @@ CallbacksFlow.prototype = {
 				}
 			}
 			cur = this.flow.shift();
-			if (!cur.aborted) {
+			if (!cur.aborted && !cur.done) {
+				cur.done = true;
 				cur.call();
 			}
 
