@@ -8,9 +8,9 @@
    },
    "default_locale": "en",
    "browser_action": {
-     "default_icon": "lastfm_128.png", 
-     "default_title": "Last.fm free music player",      
-     "default_popup": "javascript/provoda/popup.html"        
+     "default_icon": "lastfm_128.png",
+     "default_title": "Last.fm free music player",
+     "default_popup": "javascript/provoda/popup.html"
    },
    "web_accessible_resources": [
      "javascript/provoda/pv-iframe/view_proxy.js",
@@ -29,7 +29,7 @@
      "i/icon-playing-16.png",
      "i/spinner-16.gif"
    ],
-   "content_scripts": [ 
+   "content_scripts": [
       {
         "css": [ "css/mp3_player_button.css", "css/style.css", "javascript/provoda/playbutton.css" ],
         "js": [
@@ -39,7 +39,7 @@
         "matches": [ "http://*.last.fm/*", "http://*.lastfm.ru/*","http://*.lastfm.pt/*",  "http://*.lastfm.de/*", "http://*.lastfm.es/*", "http://*.lastfm.fr/*", "http://*.lastfm.it/*", "http://*.lastfm.jp/*", "http://*.lastfm.pl/*", "http://*.lastfm.com.br/*", "http://*.lastfm.se/*", "http://*.lastfm.com.tr/*"]
       },{
        "js": ["javascript/lastfm_auth_callback.js"],
-       "matches": ["http://ya.ru/white*"] 
+       "matches": ["http://ya.ru/white*"]
       },{
        "js": ["javascript/jquery.min.js", "javascript/hotkeys.js"],
        "matches": ["http://*/*", "https://*/*"]
