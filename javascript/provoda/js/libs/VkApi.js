@@ -30,10 +30,11 @@ spv.Class.extendTo(vkCoreApi, {
 	get: function() {
 		return this.send.apply(this, arguments);
 	},
+	source_name: 'vk.com',
 	cache_namespace: "vk_api",
 	send: function(method, params, options){ //nocache, after_ajax, cache_key, only_cache
 		var _this = this;
-		
+
 		if (method) {
 			options = options || {};
 			params = params || {};
@@ -80,7 +81,7 @@ spv.Class.extendTo(vkCoreApi, {
 			});
 
 			return wrap_def.complex;
-			
+
 		}
 
 	}
@@ -109,35 +110,32 @@ VkSearch.prototype = {
 		return this.makeSong(item);
 	},
 	makeSong: function(cursor, msq){
-		if (cursor && cursor.url){
-			var entity = {
-				artist	: htmlencoding.decode(cursor.artist ? cursor.artist : cursor.audio.artist),
-				duration	: parseFloat(typeof cursor.duration == 'number' ? cursor.duration : cursor.audio.duration) * 1000,
-				link		: cursor.url ? cursor.url : cursor.audio.url,
-				track		: htmlencoding.decode(cursor.title ? cursor.title : cursor.audio.title),
-				from		: 'vk',
-				downloadable: false,
-				_id			: cursor.owner_id + '_' + cursor.id,
-				type: 'mp3',
-				media_type: 'mp3'
-			};
-
-			return entity;
+		if (!cursor || !cursor.url) {
+			return;
 		}
+		return {
+			artist	: htmlencoding.decode(cursor.artist ? cursor.artist : cursor.audio.artist),
+			duration	: parseFloat(typeof cursor.duration == 'number' ? cursor.duration : cursor.audio.duration) * 1000,
+			link		: cursor.url ? cursor.url : cursor.audio.url,
+			track		: htmlencoding.decode(cursor.title ? cursor.title : cursor.audio.title),
+			from		: 'vk',
+			downloadable: false,
+			_id			: cursor.owner_id + '_' + cursor.id,
+			type: 'mp3',
+			media_type: 'mp3'
+		};
 	},
 	makeMusicList: function(r, msq) {
 		var music_list = [];
-		for (var i=1, l = r.length; i < l; i++) {
+		for (var i=0, l = r.length; i < l; i++) {
 			var entity = this.makeSong(r[i], msq);
-			
-			if (entity){
-
-				if (!entity.link.match(/audio\/.mp3$/) && !Mp3Search.hasMusicCopy( music_list, entity)){
-					music_list.push(entity);
-				}
+			if (!entity) {
+				continue;
+			}
+			if (!entity.link.match(/audio\/.mp3$/)){
+				music_list.push(entity);
 			}
 		}
-		
 		return music_list;
 	},
 	findAudio: function(msq, opts) {
@@ -188,7 +186,7 @@ VkSearch.prototype = {
 		if (async_ans.cache_used){
 			complex_response.cache_used = async_ans.cache_used;
 		}
-		
+
 		return complex_response;
 	}
 };
@@ -205,7 +203,7 @@ var VkApi = function(vk_t, params) {
 	if (vk_t) {
 		this.setAccessToken(vk_t.access_token);
 	}
-	
+
 
 	if (p.queue){
 		this.queue = p.queue;
