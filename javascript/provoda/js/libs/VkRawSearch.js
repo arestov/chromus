@@ -7,6 +7,7 @@ var VkRawSearch = function(opts) {
 	this.cache_ajax = opts.cache_ajax;
 
 };
+
 var standart_props = {
 	from: 'vk',
 	type: 'mp3',
@@ -37,37 +38,23 @@ VkRawSearch.prototype = {
 				cursor.track = guess_info.track;
 			}
 		}
-		
+
 		if (msq){
 			this.mp3_search.setFileQMI(cursor, msq);
 		}
 		return cursor;
 	},
 	cache_namespace: 'vkraw',
-	sendRequest: function(query, params, options) {
+	sendRequest: function(params, options) {
 		options = options || {};
 		options.cache_key = options.cache_key || hex_md5('audio' + spv.stringifyParams(params));
 
-	//	var	params_full = params || {};
-		//params_full.consumer_key = this.key;
-
-
-		//cache_ajax.get('vk_api', p.cache_key, function(r){
-
 		var wrap_def = wrapRequest({
-			url: 'https://vk.com/audio',
+			url: 'https://vk.com/al_audio.php',
 			type: "POST",
 			dataType: 'text',
-			data: {
-				act: 'search',
-				al: 1,
-				autocomplete: 1,
-				gid: 0,
-				offset: 0,
-				performer: 0,
-				q: query,
-				sort: 0
-			},
+			// headers
+			data: params,
 			timeout: 20000,
 			context: options.context
 		}, {
@@ -92,56 +79,69 @@ VkRawSearch.prototype = {
 		var limit_value =  msq.limit || 30;
 		opts.cache_key = opts.cache_key || (query + '_' + limit_value);
 
-		var params_u = {
-			results: limit_value
-		};
+		var async_ans = this.sendRequest({
+			"al": 1,
+			"act": "a_load_section",
+			"type": "search",
+			"offset": 0,
+			"search_q": query,
+			"search_performer": 0,
+			"search_lyrics": 0,
+			"search_sort": 0,
+			"al_ad": null
+		}, opts)
+			.then(function (res) {
+				if (res.indexOf( 'action="https://login.vk.com/"' ) != -1 ) {
+					return null;
+				}
 
-		var async_ans = this.sendRequest(query, params_u, opts);
+				var list = parseVK(res)
+					.map(function (item) {
+						return _this.makeSong(item, msq);
+					})
+					.filter(function (item) {
+						return _this.mp3_search.getFileQMI(item, msq) != -1;
+					}) || [];
+
+				_this.mp3_search.sortMusicFilesArray(list, msq);
+				return list.slice(0, 6);
+			})
+			.then(function (list) {
+				if (!list) {return null;}
+
+				return _this.sendRequest({
+					act: 'reload_audio',
+					al: 1,
+					ids: list.map(function(item) {return item._id;}).join(',')
+				}).then(function (res) {
+					var json = parse(res);
+
+					var index = {};
+					json.forEach(function (item) {
+						index[getId(item)] = item[2];
+					});
+
+					list.forEach(function (item) {
+						item.link = index[item._id];
+					});
+
+					return list.filter(function (item) {
+						return item.link;
+					});
+				});
+			});
 
 		var olddone = async_ans.done,
 			result;
 
 		async_ans.done = function(cb) {
 			olddone.call(this, function(r) {
-				if (r.indexOf( 'action="https://login.vk.com/"' ) != -1 ) {
-					cb(null, 'mp3');
+				if (r === null) {
+					return cb(null, 'mp3');
 				}
+
 				if (!result){
-					var music_list = [];
-
-					var wrap = document.createElement("div");
-					wrap.innerHTML = r.replace('<!--', '');
-
-					var audio_nodes = $(wrap).find('div.audio');
-
-
-					audio_nodes.each(function(i, el) {
-						
-						var url_data = $(el).find('input[type=hidden]').val().split(',');
-						var url = url_data[0];
-						var duration = url_data[1];
-
-						var info_node = $(el).find('.title_wrap');
-
-						var title = info_node.find('span.title').text().trim();
-						var artist = info_node.find('b a').text();
-
-						
-						var ent = _this.makeSong({
-							_id: el.id,
-							artist: artist,
-							track: title,
-							link: url,
-							duration: parseFloat(duration) * 1000
-						}, msq);
-						if (_this.mp3_search.getFileQMI(ent, msq) == -1){
-							//console.log(ent)
-						} else {
-							music_list.push(ent);
-						}
-					});
-					
-					result = music_list;
+					result = r;
 				}
 				cb(result, 'mp3');
 
@@ -151,6 +151,43 @@ VkRawSearch.prototype = {
 		return async_ans;
 	}
 };
+
+
+function parse(text) {
+	var all = text.replace(/^<!--/, '').replace(/-<>-(!?)>/g, '--$1>').split('<!>');
+
+	var parsed = all && all[5].replace(/^<\!json\>/, '');
+
+	var json;
+	try {
+		json = JSON.parse(parsed);
+	} catch (e) {}
+
+	return json || null;
+}
+
+function getId(item) {
+	return item[1] + '_' + item[0];
+}
+
+function parseVK(text) {
+	var json = parse(text);
+
+	// ["72272427", "11490336", "", "(You Gotta ) Fight for Your Right (to Party)",
+	// "The Beastie Boys", 208, 0, 6228711, "(<a href="/id6228711" class="mem_link">А. Орехов</a>)", 0, 9, "", "[]", "3d41683aff7712ba98"]
+
+	// id: 11490336_72272427
+
+	return json.list.map(function (item) {
+		return {
+			_id: getId(item),
+			artist: item[4],
+			track: item[3],
+			link: null,
+			duration: parseFloat(item[5]) * 1000
+		};
+	});
+}
 
 return VkRawSearch;
 });
