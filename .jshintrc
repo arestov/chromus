@@ -1,0 +1,19 @@
+{
+	"laxcomma": false,
+	"laxbreak": true,
+	"indent": 1,
+	"curly": true,
+	"latedef": "nofunc",
+	"undef": true,
+	"unused": true,
+	"strict": true,
+	"predef": ["define", "Promise", "require", "requirejs"],
+
+	"regexdash": true,
+	"globals": {
+	  "window": false
+	},
+	"node": true,
+	"trailing": true,
+	"sub": true
+}
