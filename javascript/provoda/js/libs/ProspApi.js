@@ -7,10 +7,10 @@ define(['spv', 'js/modules/aReq', 'js/modules/wrapRequest', 'hex_md5', 'js/commo
 
 artist: "Radio Killer"
 bitrate: "320 Kb/s"
-file: "http://pleer.com/browser-extension/files/4423743tEFC.mp3"
+file: "http://pleer.net/browser-extension/files/4423743tEFC.mp3"
 id: "4423743tEFC"
 length: 384
-link: "http://pleer.com/tracks/4423743tEFC"
+link: "http://pleer.net/tracks/4423743tEFC"
 size: 15397703
 track: "Voila"
 */
@@ -24,8 +24,8 @@ var ProspApi = function(queue, crossdomain, cache_ajax) {
 
 ProspApi.prototype = {
 	constructor: ProspApi,
-	source_name: 'pleer.com',
-	cache_namespace: 'pleer.com',
+	source_name: 'pleer.net',
+	cache_namespace: 'pleer.net',
 	thisOriginAllowed: false,
 	get: function(method, params, options) {
 		if (method) {
@@ -40,7 +40,7 @@ ProspApi.prototype = {
 
 			var wrap_def = wrapRequest({
 				headers: null,
-				url: "http://pleer.com/browser-extension/" + method,
+				url: "http://pleer.net/browser-extension/" + method,
 				type: "GET",
 				dataType: this.crossdomain ? "json": "jsonp",
 				data: params_full,
@@ -49,7 +49,7 @@ ProspApi.prototype = {
 					if (opts.dataType == 'json'){
 						opts.headers = null;
 					}
-					
+
 				},
 				context: options.context
 			}, {
@@ -90,18 +90,18 @@ var ProspMusicSearch = function(opts) {
 	this.mp3_search = opts.mp3_search;
 };
 var standart_props = {
-	from: 'pleer.com',
+	from: 'pleer.net',
 	type: 'mp3',
 	media_type: 'mp3'
 };
 
 ProspMusicSearch.prototype = {
 	constructor: ProspMusicSearch,
-	name: 'pleer.com',
-	description:'pleer.com',
+	name: 'pleer.net',
+	description:'pleer.net',
 	slave: false,
-	s: {name: 'pleer.com', key: 0, type:'mp3'},
-	dmca_url: 'http://pleer.com/feedback',
+	s: {name: 'pleer.net', key: 0, type:'mp3'},
+	dmca_url: 'http://pleer.net/feedback',
 	preferred: null,
 	makeSongFile: function(item) {
 		return this.makeSong(item);
@@ -119,7 +119,7 @@ ProspMusicSearch.prototype = {
 			}
 		}
 
-		
+
 
 		return cursor;
 	},
@@ -160,7 +160,7 @@ ProspMusicSearch.prototype = {
 						music_list.push(item);
 					}
 
-					
+
 
 					result = music_list;
 				}
