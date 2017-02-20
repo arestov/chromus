@@ -36,7 +36,19 @@
           "javascript/provoda/pv-iframe/loader.js",
           "javascript/provoda/js/common-libs/require-2.1.10.min.js"
         ],
-        "matches": [ "http://*.last.fm/*", "http://*.lastfm.ru/*","http://*.lastfm.pt/*",  "http://*.lastfm.de/*", "http://*.lastfm.es/*", "http://*.lastfm.fr/*", "http://*.lastfm.it/*", "http://*.lastfm.jp/*", "http://*.lastfm.pl/*", "http://*.lastfm.com.br/*", "http://*.lastfm.se/*", "http://*.lastfm.com.tr/*"]
+        "matches": [
+          "*://*.last.fm/*",
+          "*://*.lastfm.ru/*",
+          "*://*.lastfm.pt/*",
+          "*://*.lastfm.de/*",
+          "*://*.lastfm.es/*",
+          "*://*.lastfm.fr/*",
+          "*://*.lastfm.it/*",
+          "*://*.lastfm.jp/*",
+          "*://*.lastfm.pl/*",
+          "*://*.lastfm.com.br/*",
+          "*://*.lastfm.se/*",
+          "*://*.lastfm.com.tr/*"]
       },{
        "js": ["javascript/lastfm_auth_callback.js"],
        "matches": ["https://ya.ru/white*"]

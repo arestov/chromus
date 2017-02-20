@@ -52,8 +52,13 @@
 	background: no-repeat url(chrome-extension://__MSG_@@extension_id__/i/spinner-16.gif) 50% 50%;
 }
 
-#content .chartlist .chartlist-play {
-	min-width: 64px;
+#content .play_button_td_wrap {
+  padding-left: 5px;
+  width: 16px;
+}
+
+#content .chartlist--compact-image .play_button_td_wrap {
+  padding-left: 10px;
 }
 
 .grid-items-item--artist .play_button,
@@ -67,4 +72,21 @@
 	position: absolute;
 	right: 16px;
 	bottom: 16px;
+  z-index: 100;
 }
+
+.recs-feed-inner-wrap .play_button,
+.featured-release .play_button{
+  position: absolute;
+  right: 8px;
+  top: 8px;
+}
+
+.featured-track-body {
+  position: relative;
+}
+  .featured-track-body .play_button {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }

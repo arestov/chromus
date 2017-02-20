@@ -10,8 +10,11 @@ define(['provoda', 'jquery', 'spv'], function(provoda, $, spv) {
   {{vis_lite_view && vmp_show && 'selected_song'}}
  */
 
-
-
+function rootSpan() {
+  var node = window.document.createElement('span');
+  node.className = 'play_button_wrap';
+  return node;
+}
 
 var song_string = '' +
 '<span ' +
@@ -37,7 +40,7 @@ var song_string = '' +
 var song_sample = {
 	string: song_string,
 	sampler: null,
-	root_node: document.createElement('span')
+	root_node: rootSpan()
 };
 
 
@@ -56,7 +59,7 @@ var context_artist_string = '' +
 var context_artist_sample = {
 	string: context_artist_string,
 	sampler: null,
-	root_node: document.createElement('span')
+	root_node: rootSpan()
 };
 
 var getSample = function(obj, PvTemplate) {
@@ -169,4 +172,4 @@ provoda.View.extendTo(LFMPageView, {
 });
 
 return LFMPageView;
-});});
+});
