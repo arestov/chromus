@@ -95,8 +95,15 @@ VkRawSearch.prototype = {
 					return null;
 				}
 
-				var list = parseVK(res)
-					.map(function (item) {
+				var parsed;
+				try {
+					parsed = parseVK(res);
+				} catch (e) {
+					return $.Deferred().reject(e);
+				}
+
+				var list = parsed
+          .map(function (item) {
 						return _this.makeSong(item, msq);
 					})
 					.filter(function (item) {
