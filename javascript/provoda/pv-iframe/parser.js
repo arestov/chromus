@@ -7,17 +7,17 @@ var playlists_counter = 1;
 var artists_counter = 1;
 var albums_counter = 1;
 
-var collected_data = {
-		playlists: [],
-		artists: [],
-		albums: []
-};
-
-var views_storage = {
-		playlists: {},
-		artists: {},
-		albums: {}
-};
+// var collected_data = {
+// 		playlists: [],
+// 		artists: [],
+// 		albums: []
+// };
+//
+// var views_storage = {
+// 		playlists: {},
+// 		artists: {},
+// 		albums: {}
+// };
 
 var anchor = function(text) {
 	return document.createComment(text || comments_counter++);
@@ -165,20 +165,20 @@ var detectors = [
 	}]
 ];
 
- // album-grid-item 
+ // album-grid-item
 
-var types = {
-	playlists: function(doc, common, storage, func) {
-
-		
-	},
-	artists: function(doc, common, storage, func) {
-
-	},
-	albums: function(doc, common, storage, func) {
-
-	}
-};
+// var types = {
+// 	playlists: function(doc, common, storage, func) {
+//
+//
+// 	},
+// 	artists: function(doc, common, storage, func) {
+//
+// 	},
+// 	albums: function(doc, common, storage, func) {
+//
+// 	}
+// };
 
 return function(doc, views) {
 	var tealium = doc.getElementById('tlmdata');
