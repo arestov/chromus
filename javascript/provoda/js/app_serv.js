@@ -666,12 +666,6 @@ app_serv.handleDocument = function(d, tracking_opts) {
 	};
 
 	spv.domReady(d, function() {
-		var current_dst = new NodeClassStates(d.documentElement, dstates.getFullState());
-		current_dst.applyStates();
-	});
-	
-
-	spv.domReady(d, function() {
 		if (!d.head){
 			d.head = d.getElementsByTagName('head')[0];
 		}
