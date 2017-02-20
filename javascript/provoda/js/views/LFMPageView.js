@@ -1,13 +1,13 @@
 define(['provoda', 'jquery', 'spv'], function(provoda, $, spv) {
 "use strict";
 /*
- {{player_song && 'player_song'}} 
+ {{player_song && 'player_song'}}
  {{play && 'playing-song'}}
-  {{marked_as && 'v-song-sibling'}} 
-  {{marked_as == 'next' && 'to-play-next'}} 
-  {{marked_as == 'prev' && 'to-play-previous'}} 
-  {{vmp_show && 'viewing-song'}} 
-  {{vis_lite_view && vmp_show && 'selected_song'}} 
+  {{marked_as && 'v-song-sibling'}}
+  {{marked_as == 'next' && 'to-play-next'}}
+  {{marked_as == 'prev' && 'to-play-previous'}}
+  {{vmp_show && 'viewing-song'}}
+  {{vis_lite_view && vmp_show && 'selected_song'}}
  */
 
 
@@ -30,7 +30,7 @@ var song_string = '' +
   '      {{!has_none_files_to_play && files_search.have_mp3_tracks && \'has-some-files\'}} "'+
   '    ></span>'+
   '</span>'+
-  
+
 ' </span>';
 
 
@@ -50,7 +50,7 @@ var context_artist_string = '' +
   '    class="play_button_icon"'+
   '    ></span>'+
   '</span>'+
-  
+
 ' </span>';
 
 var context_artist_sample = {
@@ -165,8 +165,8 @@ provoda.View.extendTo(LFMPageView, {
 	'collch-main_list': true,
 	'collch-artists_list': true,
 	'collch-albums_list': true
-	
+
 });
 
 return LFMPageView;
-});
+});});

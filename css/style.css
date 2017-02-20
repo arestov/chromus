@@ -8,7 +8,7 @@ table.candyStriped.chart .sm2.button {
     display: inline-block;
 }
 
-table.mediumImageChart .vk_search_button, 
+table.mediumImageChart .vk_search_button,
 #friendsLoved .vk_search_button,
 #friendsLoved .fmppb,
 #nowPlaying .vk_search_button,
@@ -72,7 +72,7 @@ div.ex_overload_window {
     background: #fff;
     z-index: 999;
 
-    opacity: 1; 
+    opacity: 1;
     -webkit-transition: opacity 2s ease-out;
 }
 
@@ -82,10 +82,10 @@ div.ex_overload_window h3.ex_header {
     background-size: 8%;
 
     font-size: 22px;
-    
+
     padding-left: 60px;
     padding-top: 10px;
-    padding-bottom: 10px;    
+    padding-bottom: 10px;
 
     cursor: default;
 }
@@ -94,7 +94,7 @@ div.ex_overload_window p.ex_title {
     text-align: center;
     font-size: 24px;
     font-weight: bold;
-    color: #333;   
+    color: #333;
     padding-top: 0px;
     margin-top: 0px;
 }

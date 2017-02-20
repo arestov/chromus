@@ -98,7 +98,7 @@ var detectors = [
 			});
 			// playlist.push();
 		}
-		
+
 
 		return result;
 	}],
@@ -115,10 +115,9 @@ var detectors = [
 			if (!artist_name) {continue;}
 
 			var comment = anchor();
-
 			cur_node.appendChild(comment);
 
-			var id = artists_counter++; 
+			var id = artists_counter++;
 
 			result.push({
 				id: id,
@@ -133,7 +132,7 @@ var detectors = [
 	['albums', function(doc, common) {
 		var result = [];
 
-		var albums = doc.querySelectorAll('.album-grid-item,' + 
+		var albums = doc.querySelectorAll('.album-grid-item,' +
 			'.selectable-range[data-selectable-range-selectbox=top_albums] .grid-items-item');
 
 		for (var i = 0; i < albums.length; i++) {
@@ -238,7 +237,7 @@ return function(doc, views) {
 			var view = parsed_cur.view;
 
 			storage.data[type].push(data);
-			storage.views[type][id] = view;			
+			storage.views[type][id] = view;
 		}
 		// return storage;
 	}

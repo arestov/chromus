@@ -35,7 +35,7 @@
 }
 .has-some-files {
 	background-image: url(chrome-extension://__MSG_@@extension_id__/i/icon-finded-16.png);
-	
+
 }
 .pbicon-playing_song {
 	background-image: url(chrome-extension://__MSG_@@extension_id__/i/icon-playing-16.png);
@@ -43,10 +43,10 @@
 
 .searching_files-base {
 	display: block;
-	
+
 	height: 16px;
 	width: 16px;
-	
+
 }
 .searching_files-progress {
 	background: no-repeat url(chrome-extension://__MSG_@@extension_id__/i/spinner-16.gif) 50% 50%;
