@@ -12,7 +12,7 @@ function isFileReady ( readyState ) {
 
 var p = document.getElementsByTagName('script');
 p = p[p.length-1];
-		
+
 app_serv.loadJS = function(src, callback){
 	var s = document.createElement('script'),
 		done;
@@ -94,7 +94,7 @@ var loadImage = function(opts) {
 			if (node){
 				node.src = '';
 			}
-			
+
 			if (this.queued){
 				this.queued.abort();
 			}
@@ -156,7 +156,7 @@ var loadImage = function(opts) {
 			return;
 		}
 		accomplished = true;
-		
+
 		node.src = opts.url;
 		if (node.complete){
 			if (opts.cache_allowed){
@@ -180,7 +180,7 @@ var loadImage = function(opts) {
 	if (opts.queue && !loaded_images[opts.url]){
 		addImageLoadCallback(opts.url, imageLoadCallback);
 		async_obj.queued = opts.queue.add(accomplishLoad);
-		
+
 	} else {
 		accomplishLoad();
 	}
@@ -211,7 +211,7 @@ app_serv.getHTMLText = function(text) {
 
 
 var addClass = function(old_c, cl){
-	
+
 	var add_c = cl.split(' ');
 	var new_c = old_c;
 	for (var i=0; i < add_c.length; i++) {
@@ -223,7 +223,7 @@ var addClass = function(old_c, cl){
 	}
 	return new_c;
 };
- 
+
 var removeClass = function(old_c, add_c){
 	var re = new RegExp("(^|\\s)" + add_c + "(\\s|$)", "g");
 	return old_c.replace(re, "$1").replace(/\s+/g, " ").replace(/(^ | $)/g, "");
@@ -273,7 +273,7 @@ var get_url_parameters = function(str, decode_uri_c){
 			prop_value = decodeURIComponent(prop_value);
 		}
 
-		
+
 		full_url[prop_name] = prop_value;
 	}
 	return full_url;
@@ -300,7 +300,7 @@ var detectBrowser;
 
 		return { browser: match[1] || "", version: match[2] || "0" };
 	};
-	
+
 })(window);
 var xhr2_support = window.XMLHttpRequest && "withCredentials" in (new XMLHttpRequest());  //https://gist.github.com/1431660
 
@@ -312,16 +312,16 @@ var app_env = (function(wd){
 		bro: bro
 	};
 	env.url = get_url_parameters(wd.location.search, true);
-	
+
 	env.cross_domain_allowed = !wd.location.protocol.match(/(http\:)|(file\:)/);
-	
+
 	env.xhr2 = !!xhr2_support;
 
-	
+
 	var dom_style_obj = wd.document.body.style;
 	var has_transform_prop;
 	var has_transition_prop;
-	
+
 
 	var transition_props = {
 		//https://github.com/ai/transition-events/blob/master/lib/transition-events.js
@@ -332,7 +332,7 @@ var app_env = (function(wd){
 		'WebkitTransition':	'webkitTransitionEnd',
 		'MozTransition':	'transitionend'
 	};
-	
+
 
 
 	for ( var prop in transition_props ) {
@@ -380,7 +380,7 @@ var app_env = (function(wd){
 				env.app_type = 'opera_widget';
 				env.deep_sanbdox = true;
 			}
-			
+
 		} else {
 			env.app_type = 'apple_db_widget';
 		}
@@ -388,7 +388,7 @@ var app_env = (function(wd){
 		env.as_application = true;
 	} else
 	if (typeof chrome === 'object' && wd.location.protocol == 'chrome-extension:'){
-		
+
 		var opera = navigator.userAgent.indexOf('OPR') != -1;
 		if (wd.location.pathname == '/index.html'){
 			env.app_type = opera ? 'opera_app' : 'chrome_app';
@@ -400,10 +400,10 @@ var app_env = (function(wd){
 			env.app_type = opera ? 'opera_extension' : 'chrome_extension';
 			env.as_application = true;
 		}
-		
+
 	} else
 	if (wd.location.protocol.match(/http/)){
-		
+
 		if (wd.parent != wd && env.url.access_token && env.url.user_id){
 			env.app_type = 'vkontakte';
 			env.check_resize = true;
@@ -411,11 +411,11 @@ var app_env = (function(wd){
 
 			env.need_favicon = true;
 			env.app_type = 'web_app';
-			
+
 		}
 		env.as_application = false;
 		env.needs_url_history = true;
-		
+
 	} else
 	if (wd.pokki && wd.pokki.show){
 		env.safe_data = true;
@@ -428,7 +428,7 @@ var app_env = (function(wd){
 		env.app_type = 'utorrent_app';
 		env.as_application = false;
 		env.deep_sanbdox = true;
-		
+
 	} else
 	if (bro.browser == 'mozilla'){
 		env.app_type = 'firefox_widget';
@@ -443,11 +443,11 @@ var app_env = (function(wd){
 			env.touch_support = true;
 		}
 	} catch(e){}
-	
-	
-	
+
+
+
 	//env.needs_url_history = false; //TEMP
-	
+
 	if (!env.app_type){
 		env.app_type = 'unknown_app_type' + (wd.navigator.userAgent && ': ' + wd.navigator.userAgent);
 		env.unknown_app_type = true;
@@ -455,14 +455,14 @@ var app_env = (function(wd){
 	} else{
 		env[env.app_type] = true;
 	}
-	
+
 
 	env.iframe_support = !env.utorrent_app && (!env.unknown_app_type || wd.location.protocol == 'file:');
-	
-	
+
+
 	if (env.touch_support){dstates.addState('touch-screen');}
 	if (env.as_application){
-		
+
 		dstates.addState('as-application');
 		dstates.removeState('not-as-application');
 	} else{
@@ -474,17 +474,17 @@ var app_env = (function(wd){
 		} else {
 			dstates.addState(env.app_type.replace('_','-'));
 		}
-		
+
 
 	}
 	if (env.cross_domain_allowed) {dstates.addState('cross-domain-allowed');}
-	
+
 	if (env.transform){
 		dstates.addState('yes-transform_support');
 	} else {
 		dstates.addState('no-transform_upport');
 	}
-	
+
 	if (env.vkontakte){
 		if (env.url.language === '0'){
 			env.lang = 'ru';
@@ -496,10 +496,10 @@ var app_env = (function(wd){
 	} else{
 		env.lang = (wd.navigator.language || wd.navigator.browserLanguage).slice(0,2).toLowerCase();
 	}
-	
-	
-	
-	
+
+
+
+
 	return env;
 })(window);
 app_serv.app_env = app_env;
@@ -515,7 +515,7 @@ app_serv.app_env = app_env;
 				try {
 					r_value = JSON.parse(r_value);
 				} catch (e) {
-					
+
 				}
 			}
 			return r_value;
@@ -531,14 +531,14 @@ app_serv.app_env = app_env;
 			}
 
 			return w_storage(key, value, opts);
-			
+
 		} else{
-			
+
 			value =  w_storage(key, value, opts);
 			if (sensitive && app_env.pokki_app){
 				value = pokki.descramble(value);
 			}
-			
+
 			return parse(value);
 		}
 	};
@@ -553,7 +553,7 @@ app_serv.app_env = app_env;
 		if (nk && nk[key]){
 			return nk[key];
 		}
-		
+
 	};
 
 })();
@@ -585,7 +585,7 @@ if (typeof widget != 'object'){
 					link_node.click();
 			};
 		}
-		
+
 	} else if (window.pokki && pokki.openURLInDefaultBrowser) {
 		openURL = function(){
 			return pokki.openURLInDefaultBrowser.apply(pokki, arguments);
@@ -624,7 +624,7 @@ if (typeof widget != 'object'){
 			return pokki.clearWebSheetCookies();
 		};
 	}
-	
+
 
 })();
 
@@ -633,11 +633,11 @@ if (typeof widget != 'object'){
 
 if (typeof console != 'object'){
 	var console = {};
-	
+
 	if  (window.navigator.userAgent.match(/Opera/)){
 		console.log = function(){
 				opera.postError.apply(opera, arguments);
-			
+
 		};
 	} else if ((typeof System != "undefined") && System.Debug) {
 		console.log = function(text){
@@ -714,7 +714,7 @@ app_serv.handleDocument = function(d, tracking_opts) {
 		for (i = 0; i < translatable.length; i++) {
 			var cur = translatable[i];
 			emptyNode(cur[0]).appendChild(d.createTextNode(cur[1]));
-			
+
 		}
 	});
 	requirejs(['jquery'], function($) {
@@ -739,10 +739,10 @@ var localize= (function(){
 				};
 				return j;
 			}
-			
+
 			return 'no this localization: ' + string;
 		}
-		
+
 	};
 })();
 app_serv.localize = localize;
@@ -813,10 +813,10 @@ app_serv.localize = localize;
 	}());
 
 (function(global) {
-	
 
 
-	
+
+
 	var getTabs = function(count) {
 		var tabs_string = '';
 		while (count){
@@ -826,7 +826,7 @@ app_serv.localize = localize;
 		return tabs_string;
 	};
 	app_serv.getTabs = getTabs;
-	
+
 	var getRulesString = function(arr, tabs_count) {
 		var string = '';
 		for (var i = 0; i < arr.length; i++) {
@@ -873,9 +873,9 @@ app_serv.localize = localize;
 						new_values[j] = cur_val;
 					} else {
 						new_values[j] =  cur_val.replace(/(\d+)px/gi, replaceFunc);
-						
+
 					}
-					
+
 				}
 				if (new_values.join(' ') != 0){
 					px_props.push({
@@ -887,7 +887,7 @@ app_serv.localize = localize;
 				}
 
 
-				
+
 			}
 
 		}
@@ -936,7 +936,7 @@ app_serv.localize = localize;
 	};
 	app_serv.getSimpleCSSRules = getSimpleRules;
 
-	
+
 
 	var replaceSVGHImage = function(rule, style, $){
 
@@ -979,7 +979,7 @@ app_serv.localize = localize;
 			console.log(errors);
 			return;
 		}
-		 
+
 		//console.log(structure);
 		var file_url = structure.file;
 
@@ -1027,8 +1027,8 @@ app_serv.localize = localize;
 
 			$(style).append(document.createTextNode(new_rule_text));
 
-			
-			
+
+
 		});
 		//var target
 	};
@@ -1038,7 +1038,7 @@ app_serv.localize = localize;
 		var big_list = [];
 		for (var i = 0; i < doc.styleSheets.length; i++) {
 			big_list = big_list.concat(getSimpleRules(doc.styleSheets[i]));
-			
+
 		}
 		var svg_hacked = spv.filter(big_list, 'style.backgroundImage', function(value){
 			return value && value.indexOf('data:text/plain;utf8,svg-hack,') !== -1;
@@ -1051,11 +1051,11 @@ app_serv.localize = localize;
 		});
 	};
 
-	
-	
-	
+
+
+
 })(this);
-	
+
 
 /*
 var getAuString = function(user) {
@@ -1074,15 +1074,15 @@ for (var i = 0; i < fr.length; i++) {
 	var all = {};
 	var friends = API.friends.get();
 	var count_down = friends.length;
-	
+
 	while (count_down != 0) {
-		
-		
+
+
 		count_down = count_down -1;
 	};
-	
+
 	return friends;
-	
+
 	*/
 //};
 /*
@@ -1091,7 +1091,7 @@ return API.audio.get({"uid": friends[0]});
 
 for (var i = 0; i < friends.length; i++) {
 	all[friends[i]] = API.audio.get({"uid": friends[i]});
-	
+
 }
 
 
@@ -1107,7 +1107,7 @@ var parseArtistInfo = app_serv.parseArtistInfo = function(r){
 	if (r && r.artist){
 		var info = r.artist;
 
-		
+
 		ai.artist = spv.getTargetField(info, 'name');
 		ai.bio = (ai.bio = spv.getTargetField(info, 'bio.summary')) && ai.bio.replace(new RegExp("ws.audioscrobbler.com",'g'),"www.last.fm");
 		ai.similars = (ai.similars = spv.getTargetField(info, 'similar.artist')) && spv.toRealArray(ai.similars);
