@@ -274,7 +274,7 @@ AppModel.extendTo(SeesuApp, {
 				_this.updateState('lfm_userid', _this.lfm.username);
 			});
 		}
-		
+
 
 		this.lfm_auth.on('session.ga_tracking', function(){
 			_this.trackEvent('Auth to lfm', 'end');
@@ -294,16 +294,16 @@ AppModel.extendTo(SeesuApp, {
 							var params = get_url_parameters(url.replace(sb, ''));
 							if (params.token){
 								_this.lfm_auth.setToken(params.token);
-								
+
 							}
 							app_env.clearWebPageCookies();
 							return true;
 						}
 					}
-					
+
 				}, function(e){
 					app_env.openURL(wurl);
-					
+
 				}, 960, 750);
 				if (!opend){
 					app_env.openURL(wurl);
@@ -372,7 +372,7 @@ AppModel.extendTo(SeesuApp, {
 		this.last_usage = (lu && new Date(lu)) || ((new Date() * 1) - 1000*60*60*0.75);
 		this.usage_counter = parseFloat(app_serv.store('app-usage-counter')) || 0;
 
-		
+
 		setInterval(function(){
 
 			var now = new Date();
@@ -396,7 +396,7 @@ AppModel.extendTo(SeesuApp, {
 		this.popular_artists = ["The Beatles", "Radiohead", "Muse", "Lady Gaga", "Eminem", "Coldplay", "Red Hot Chili Peppers", "Arcade Fire", "Metallica", "Katy Perry", "Linkin Park" ];
 		this.mp3_search = (new Mp3Search({app: this}, {
 			vk: 5,
-			'pleer.com': 4,
+			'pleer.net': 4,
 			nigma: 1,
 			exfm: 0,
 			soundcloud: -5,
@@ -418,7 +418,7 @@ AppModel.extendTo(SeesuApp, {
 
 		this.initAPIs();
 
-		
+
 
 
 
@@ -454,7 +454,7 @@ AppModel.extendTo(SeesuApp, {
 		this.map
 			.init(this.start_page)
 			.on('residents-tree', function(tree) {
-				
+
 			}, this.getContextOptsI())
 			.on('changes', function(changes, tree, residents) {
 				//console.log(changes);
@@ -499,12 +499,12 @@ AppModel.extendTo(SeesuApp, {
 					} else {
 						history.back();
 					}
-					
+
 				}
 			});
 		}
 
-		
+
 
 
 
@@ -514,7 +514,7 @@ AppModel.extendTo(SeesuApp, {
 
 
 			var mpx = _this.connectMPX();
-			
+
 
 			mpx.addView(view, name);
 
@@ -539,7 +539,7 @@ AppModel.extendTo(SeesuApp, {
 			_this.checkStats();
 		},100);
 
-		
+
 		setTimeout(function() {
 			for (var i = _this.supported_settings.length - 1; i >= 0; i--) {
 				var cur = _this.supported_settings[i];
@@ -556,7 +556,7 @@ AppModel.extendTo(SeesuApp, {
 						value = false;
 					}
 				}
-				
+
 
 				_this.letAppKnowSetting(cur, value);
 			}
@@ -567,10 +567,10 @@ AppModel.extendTo(SeesuApp, {
 		}, 200);
 
 
-		
 
 
-		
+
+
 		if (app_env.needs_url_history){
 			navi.init(function(e){
 				var url = e.newURL;
@@ -619,22 +619,22 @@ AppModel.extendTo(SeesuApp, {
 
 				notification.show();
 
-				
+
 			}
 			if (notification) {
 				setTimeout(function(){
-					
+
 					if (notification.cancel) {
 						notification.cancel();
 					}
 					if (notification.close) {
 						notification.close();
 					}
-					
-					
+
+
 				}, 6000);
 			}
-			
+
 		};
 
 		if (window.Notification && window.Notification.permission =='granted') {
@@ -646,7 +646,7 @@ AppModel.extendTo(SeesuApp, {
 					//e.value.state()
 
 					var mopla = e.value.mopla;
-					
+
 
 					try {
 						showSongNotification(
@@ -655,7 +655,7 @@ AppModel.extendTo(SeesuApp, {
 							image_url
 						);
 					} catch (error) {}
-					
+
 					/*var notification = window.webkitNotifications.createNotification( image_url || '' , e.value.state('track'), e.value.state('artist'));
 					notification.show();
 					*/
@@ -665,7 +665,7 @@ AppModel.extendTo(SeesuApp, {
 			});
 		}
 
-		
+
 	},
 	/*
 
@@ -802,7 +802,7 @@ AppModel.extendTo(SeesuApp, {
 		} else {
 			this.trackStat.call(this, args);
 		}
-		
+
 	},
 	checkPageTracking: function() {
 		if (this.app_view_id && this.last_page_tracking_data){
@@ -839,7 +839,7 @@ AppModel.extendTo(SeesuApp, {
 	},
 	routePathByModels: function(pth_string) {
 		return BrowseMap.routePathByModels(this.start_page, pth_string);
-	
+
 	},
 	getPlaylists: function(query) {
 		var r = [],i;
@@ -891,7 +891,7 @@ AppModel.extendTo(SeesuApp, {
 					_this.s.vk_id = user_id;
 
 					var _d = spv.cloneObj({data_source: 'vkontakte'}, info);
-					
+
 
 					_this.s.setInfo('vk', _d);
 
@@ -941,7 +941,7 @@ AppModel.extendTo(SeesuApp, {
 			var vk_token = new VkAuth.VkTokenAuth(su.vkappid, vk_t_raw);
 			su.vk_auth.api = su.connectVKApi(vk_token, true);
 			su.vk_auth.trigger('full-ready', true);
-				
+
 		}
 	},
 	connectVKApi: function(vk_token, access, not_save) {
@@ -1054,12 +1054,12 @@ AppModel.extendTo(SeesuApp, {
 				if (!cur.link) {
 					debugger;
 					continue;
-					
+
 				}
 				if (!cur.from) {
 					cur.from = source_name;
 				}
-				
+
 				if (!cur.media_type) {
 					cur.media_type = 'mp3';
 				}
@@ -1080,7 +1080,7 @@ AppModel.extendTo(SeesuApp, {
 		} else {
 			console.log(source_name, ns, data);
 		}
-		
+
 	}
 
 });
@@ -1161,7 +1161,7 @@ provoda.sync_s.setRootModel(su);
 					mp3_search: su.mp3_search
 				})
 			}));
-			
+
 		});
 	} else {
 		var allow_torrents = false || app_env.nodewebkit;
@@ -1192,9 +1192,9 @@ provoda.sync_s.setRootModel(su);
 		}
 	}
 
-	
 
-	
+
+
 
 
 
