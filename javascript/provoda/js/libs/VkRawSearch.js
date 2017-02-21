@@ -1,4 +1,4 @@
-define(['spv', 'hex_md5', 'js/libs/Mp3Search', 'jquery', 'js/modules/wrapRequest'], function(spv, hex_md5, Mp3Search, $, wrapRequest){
+define(['spv', 'hex_md5', 'js/libs/Mp3Search', 'jquery', 'js/modules/wrapRequest', './VkRawDecode'], function(spv, hex_md5, Mp3Search, $, wrapRequest, decode){
 "use strict";
 var VkRawSearch = function(opts) {
 	//this.api = opts.api;
@@ -129,7 +129,7 @@ VkRawSearch.prototype = {
 					});
 
 					list.forEach(function (item) {
-						item.link = index[item._id];
+						item.link = decode(index[item._id]);
 					});
 
 					return list.filter(function (item) {
