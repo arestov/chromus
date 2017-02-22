@@ -1,3 +1,0 @@
-$(function() {
-	// chrome.storage.local.get('sovetnikDisabled', ...
-});

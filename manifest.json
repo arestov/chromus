@@ -31,7 +31,7 @@
    ],
    "content_scripts": [
       {
-        "css": [ "css/mp3_player_button.css", "css/style.css", "javascript/provoda/playbutton.css" ],
+        "css": [ "css/style.css", "javascript/provoda/playbutton.css" ],
         "js": [
           "javascript/provoda/pv-iframe/loader.js",
           "javascript/provoda/js/common-libs/require-2.1.10.min.js"
@@ -52,9 +52,6 @@
       },{
        "js": ["javascript/lastfm_auth_callback.js"],
        "matches": ["https://ya.ru/white*"]
-      },{
-       "js": ["javascript/jquery.min.js", "javascript/hotkeys.js"],
-       "matches": ["http://*/*", "https://*/*"]
       }
    ],
    "background": {
