@@ -260,7 +260,10 @@ var detectors = [
         }
 
         var artist_name = getText($0, '.recs-feed-description a');
-        var track_name = getText($0, '.recs-feed-title a');
+				var track_name_node = $0.querySelector('.recs-feed-title a');
+        var track_name_raw = track_name_node && track_name_node.textContent.trim();
+				var duration_text = getText(track_name_node, '.recs-feed-title-duration');
+				var track_name = duration_text ? track_name_raw.replace(duration_text, '') : track_name_raw;
 
         if (!artist_name || !track_name) {
           return;
