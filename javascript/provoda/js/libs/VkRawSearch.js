@@ -80,15 +80,12 @@ VkRawSearch.prototype = {
 		opts.cache_key = opts.cache_key || (query + '_' + limit_value);
 
 		var async_ans = this.sendRequest({
-			"al": 1,
-			"act": "a_load_section",
+			"act": "load_section",
 			"type": "search",
+			"al": "1",
+			"claim": 0,
 			"offset": 0,
 			"search_q": query,
-			"search_performer": 0,
-			"search_lyrics": 0,
-			"search_sort": 0,
-			"al_ad": null
 		}, opts)
 			.then(function (res) {
 				if (res.indexOf( 'action="https://login.vk.com/"' ) != -1 ) {
